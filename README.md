@@ -84,3 +84,6 @@ This repository outlines the design and implementation details of a decentralize
 ---
 
 Feel free to explore the repository for more detailed information on the design and implementation of the decentralized NoSQL database cluster. Contributions and feedback are welcome!
+
+## License
+MIT License [Link to MIT License](https://opensource.org/licenses/MIT)
