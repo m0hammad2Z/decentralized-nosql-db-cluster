@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Send Email</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background-color: #e9e9e9; padding: 15px; border-radius: 10px;">
+    <h1>Emails</h1>
+    <form action="#" th:action="@{/logout}" method="post" style="margin: 0; background-color: transparent; border: none;">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+
+
+<p th:text="${errorMessage}" style="color: red;"></p>
+<p th:text="${message}"></p>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Sent Email</h2>
+    <a th:href="@{/email}">Back</a>
+</div>
+<form action="#" th:action="@{/email/send}" method="post">
+    <label for="receiver">To:</label><br>
+    <input type="email" id="receiver" name="receiver" required><br>
+    <label for="subject">Subject:</label><br>
+    <input type="text" id="subject" name="subject" required><br>
+    <label for="body">Body:</label><br>
+    <textarea id="body" name="body" required></textarea><br>
+    <input type="submit" value="Send Email">
+</form>
+</body>
+</html>

@@ -1,0 +1,80 @@
+version: '3'
+services:
+
+  bootstrap:
+    build: ./Bootstrapping
+    ports:
+      - "8080:8080"
+      - "2222:2222"
+    environment:
+      - broadcasting-listener-port=2222
+      - server.port=8080
+    
+
+  demo:
+    build: ./Demo
+    ports:
+      - "7045:7045"
+    environment:
+      - server.port=7045
+      - bootstrapping-node-server=bootstrap
+      - bootstrapping-node-port=8080
+    depends_on:
+      - bootstrap
+      - node1
+
+    
+  node1:
+    build: ./Node
+    ports:
+      - "8081:8081"
+      - "2223:2223"
+    environment:
+      - broadcasting-listener-port=2223
+      - server.port=8081
+      - server.hostname=node1
+      - bootstrapping-server=bootstrap
+      - bootstrapping-port=2222
+      - DBSIM_ROOT_DIRECTORY=/Node1
+    depends_on:
+      - bootstrap
+    volumes:
+      - ./Node1:/Node1
+
+
+  node2:
+    build: ./Node
+    ports:
+      - "8082:8082"
+      - "2224:2224"
+    environment:
+      - broadcasting-listener-port=2224
+      - server.port=8082
+      - server.hostname=node2
+      - bootstrapping-server=bootstrap
+      - bootstrapping-port=2222
+      - DBSIM_ROOT_DIRECTORY=/Node2
+    depends_on:
+      - bootstrap
+    volumes:
+      - ./Node2:/Node2
+
+
+  node3:
+    build: ./Node
+    ports:
+      - "8083:8083"
+      - "2225:2225"
+    environment:
+      - broadcasting-listener-port=2225
+      - server.port=8083
+      - server.hostname=node3
+      - bootstrapping-server=bootstrap
+      - bootstrapping-port=2222
+      - DBSIM_ROOT_DIRECTORY=/Node3
+    depends_on:
+      - bootstrap
+    volumes:
+      - ./Node3:/Node3
+
+

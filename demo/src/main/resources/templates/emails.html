@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <title>Emails</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background-color: #e9e9e9; padding: 15px; border-radius: 10px;">
+    <h1>Emails</h1>
+    <form action="#" th:action="@{/logout}" method="post" style="margin: 0; background-color: transparent; border: none;">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+<p th:text="${errorMessage}" style="color: red;"></p>
+<p th:text="${message}"></p>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Sent Email</h2>
+    <a th:href="@{/email/send}">Send Email</a>
+</div>
+<div th:if="${sentEmails.isEmpty()}">
+    <p>No sent emails</p>
+</div>
+<div th:unless="${sentEmails.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>Recipient</th>
+            <th>Subject</th>
+            <th>Body</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="email : ${sentEmails}">
+            <td th:text="${email.receiver}"></td>
+            <td th:text="${email.subject}"></td>
+            <td th:text="${email.body}"></td>
+            <td>
+                <form th:action="@{/email/delete}" method="post" style="margin: 0; background-color: transparent; border: none;">
+                    <input type="hidden" th:value="${email.id}" name="id">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Received Email</h2>
+<div th:if="${receivedEmails.isEmpty()}">
+    <p>No received emails</p>
+</div>
+<div th:unless="${receivedEmails.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>Sender</th>
+            <th>Subject</th>
+            <th>Body</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="email : ${receivedEmails}">
+            <td th:text="${email.sender}"></td>
+            <td th:text="${email.subject}"></td>
+            <td th:text="${email.body}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
